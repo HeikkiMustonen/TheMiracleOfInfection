@@ -65,6 +65,17 @@ namespace MiracleOfInfectionLibrary
             return (Human.Sex) s;
         }
 
+        public List<Human> GetListOfHealthyHumans(int amount)
+        {
+            List<Human> list = new List<Human>();
+            for (int i = 0; i < amount ; i++)
+            {
+                list.Add(CreateRandomHumanWithDataTest());
+            }
+
+            return list;
+
+        }
 
         private string[] firstNamesMale = 
             { 

@@ -16,9 +16,24 @@ namespace MiracleOfInfectionLibrary
             set { firstName = value; }
         }
 
+        private List<Disease> _diseases;
+
+        public List<Disease> diseases
+        {
+            get { return _diseases; }
+            set { _diseases = value; }
+        }
+
+        public Human()
+        {
+            diseases = new List<Disease>();
+        }
+
+
         public string lastName { get; set; }
         public Sex sex { get; set; }
         public int age { get; set; }
 
+        
     }
 }

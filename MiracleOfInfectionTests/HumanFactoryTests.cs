@@ -19,7 +19,7 @@ namespace MiracleOfInfectionTests
         {
             string name = humanFactory.GetRandomFirstName();
             TestContext.WriteLine($"Name was: {name}");
-            Assert.Pass("Name was not null.",name != null);
+            Assert.IsNotNull(name);
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace MiracleOfInfectionTests
         {
             string name = humanFactory.GetRandomFirstName(Human.Sex.male);
             TestContext.WriteLine($"Name was: {name}");
-            Assert.Pass("Name was not null.", name != null);
+            Assert.True(name != null);
         }
 
         [Test]
@@ -35,15 +35,17 @@ namespace MiracleOfInfectionTests
         {
             string name = humanFactory.GetRandomFirstName(Human.Sex.female);
             TestContext.WriteLine($"Name was: {name}");
-            Assert.Pass("Name was not null.", name != null);
+            Assert.True(name != null);
         }
 
         [Test]
         public void CreateHumanTest()
         {
             Human human = humanFactory.CreateRandomHumanWithDataTest();
-            Assert.Pass("Human created with first and last name.", human.FirstName != null && human.lastName != null);
+            Assert.True(human.FirstName != null && human.lastName != null);
         }
+
+        
 
         [Test]
         public void CreateListOfHumansTest()
@@ -53,9 +55,16 @@ namespace MiracleOfInfectionTests
             {
                 TestContext.WriteLine($"Name was: {human.FirstName} ,{human.lastName}");
             }
-            Assert.Pass("Human created with first and last name.", list.Count == 5);
+            Assert.True(list.Count == 5);
         }
 
+        [Test]
+        public void GetListOfHealthyHumans()
+        {
+            List<Human> list = humanFactory.GetListOfHealthyHumans(100);
+            List<Human> healthyList = list.FindAll(x => x.diseases.Count == 0);
+            Assert.True(list.Count == healthyList.Count);
+        }
 
     }
 }
