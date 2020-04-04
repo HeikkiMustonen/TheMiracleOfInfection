@@ -58,7 +58,7 @@ namespace MiracleOfInfectionTests
             
             DiseaseManager.RollInfectionAgainsGroup(infectedHuman, group);
 
-            TestHelper.PrintHumanListToTestContext(group);
+            TestHelper.PrintHumanListWithDiseasesToTestContext(group);
         }
     }
 }

@@ -36,6 +36,11 @@ namespace MiracleOfInfectionLibrary
             this.infectiousness = 10;
         }
 
+        public Disease(string name, int infectiousness)
+        {
+            this.name = name;
+            this.infectiousness = infectiousness;
+        }
         public Disease ShallowCopy()
         {
             return (Disease)this.ShallowCopy();

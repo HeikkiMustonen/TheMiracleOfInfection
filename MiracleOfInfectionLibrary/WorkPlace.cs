@@ -52,5 +52,10 @@ namespace MiracleOfInfectionLibrary
             return infected;
         }
 
+        public List<Human> GetHealthy()
+        {
+            List<Human> infected = _workers.FindAll(x => x.diseases.Count <= 0);
+            return infected;
+        }
     }
 }

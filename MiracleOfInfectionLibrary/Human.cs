@@ -24,6 +24,14 @@ namespace MiracleOfInfectionLibrary
             set { _diseases = value; }
         }
 
+        private int _infectedTimes;
+
+        public int infectedTimes
+        {
+            get { return _infectedTimes; }
+            set { _infectedTimes = value; }
+        }
+
         public Human()
         {
             diseases = new List<Disease>();
@@ -33,6 +41,13 @@ namespace MiracleOfInfectionLibrary
         public string lastName { get; set; }
         public Sex sex { get; set; }
         public int age { get; set; }
+
+
+        public void Infect(Disease disease)
+        {
+            infectedTimes += 1;
+            this.diseases.Add(disease);
+        }
 
         
     }

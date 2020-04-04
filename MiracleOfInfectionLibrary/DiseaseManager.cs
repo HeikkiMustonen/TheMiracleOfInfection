@@ -40,24 +40,23 @@ namespace MiracleOfInfectionLibrary
             }
         }
 
-        public static void RollInfectionAgainsHumansInPlace(Human infected, List<Human> healthyList)
+        public static void RollInfectionAgainnstGroupAndGourp(List<Human> infectedList, List<Human> healthyList)
         {
-            if (infected.diseases.Count <= 0)
-            {
-                throw new Exception("There was no diseases in infected person");
-            }
-            else
+            foreach (var infected in infectedList)
             {
                 Disease disease = infected.diseases[0];
-                foreach (Human human in healthyList)
+                foreach (var healthy in healthyList)
                 {
-                    if (RollInfection(disease))
+                    if (RollInfection(infected.diseases[0]))
                     {
-                        human.diseases.Add(disease);
+                        //if infected
+                        healthy.Infect(disease);
                     }
                 }
-            }
+            }            
         }
+
+
 
         public virtual bool HasInfectedHumans(List<Human> list)
         {

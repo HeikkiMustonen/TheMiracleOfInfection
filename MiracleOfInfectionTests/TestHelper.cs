@@ -9,7 +9,7 @@ namespace MiracleOfInfectionTests
     public class TestHelper
     {
 
-        public static void PrintHumanListToTestContext(List<Human> list)
+        public static void PrintHumanListWithSeperateHelathyAndInfectedToTestContext(List<Human> list)
         {
             int rowNumber = 1;
             int healty = 0;
@@ -20,6 +20,7 @@ namespace MiracleOfInfectionTests
                 if (human.diseases.Count > 0)
                 {
                     sick += 1;
+                    TestContext.Write($"\tinfected times : {human.infectedTimes} ");
                     TestContext.Write($"\tDiseases :  ");
                     foreach (Disease disease in human.diseases)
                     {
@@ -37,6 +38,43 @@ namespace MiracleOfInfectionTests
             }
 
             TestContext.Write($"\n there was {healty} healty people and {sick} sick people.  ");
+        }
+
+        public static void PrintHumanListWithDiseasesToTestContext(List<Human> list)
+        {
+            int rowNumber = 1;
+            foreach (var human in list)
+            {
+                TestContext.WriteLine($"{rowNumber}. {human.FirstName} {human.lastName} ");
+                if (human.diseases.Count > 0)
+                {
+                    TestContext.WriteLine($"\tinfected times : {human.infectedTimes} ");
+                    TestContext.Write($"\tDiseases :  ");
+                    foreach (Disease disease in human.diseases)
+                    {
+                        TestContext.Write($"{disease.name} ");
+                    }
+                    TestContext.WriteLine();
+                }
+                else
+                {
+              
+                    TestContext.WriteLine($"\tHas no diseases ");
+                }
+
+                rowNumber++;
+            }
+        }
+
+        public static void PrintHumanListWithNamesOnlyToTestContext(List<Human> list)
+        {
+            int rowNumber = 1;
+            foreach (var human in list)
+            {
+                TestContext.WriteLine($"{rowNumber}. {human.FirstName} {human.lastName} ");
+                rowNumber++;
+            }
+
         }
     }
 }
