@@ -6,8 +6,6 @@ namespace MiracleOfInfectionLibrary
 {
     public class HumanFactory
     {
-        
-
         public string GetRandomFirstName(Human.Sex sex=Human.Sex.male)
         {
             switch (sex)
@@ -24,6 +22,22 @@ namespace MiracleOfInfectionLibrary
             }
         }
 
+        public static Human GetInfectedHuman()
+        {
+            HumanFactory hf = new HumanFactory();
+            Human human =  hf.CreateRandomHumanWithDataTest();
+
+            human.diseases.Add(new Disease());
+            return human;
+        }
+
+        public static Human GetInfectedHuman(Disease disease)
+        {
+            Human human = new Human();
+            human.diseases.Add(disease);
+            return human;
+        }
+
         public string GetRandomLastName()
         {
             return GetRandomFromStringArray(lastNames);
@@ -33,7 +47,7 @@ namespace MiracleOfInfectionLibrary
         {
             Human human = new Human();
             human.sex = GetRandomSex();
-            human.FirstName = GetRandomFirstName(human.sex);
+            human.firstName = GetRandomFirstName(human.sex);
             human.lastName = GetRandomLastName();
             return human;
         }

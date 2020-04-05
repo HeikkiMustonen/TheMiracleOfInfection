@@ -8,6 +8,7 @@ namespace MiracleOfInfectionLibrary
     public class HumanManager
     {
         public List<Human> allHumans = new List<Human>();
-
     }
+
+    
 }

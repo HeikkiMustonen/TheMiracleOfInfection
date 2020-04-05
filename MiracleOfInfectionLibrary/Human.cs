@@ -8,12 +8,12 @@ namespace MiracleOfInfectionLibrary
     {
         public enum Sex { male = 0, female }
         public int id { get; set; }
-        private string  firstName;
+        private string  _firstName;
 
-        public string  FirstName
+        public string  firstName
         {
-            get { return firstName; }
-            set { firstName = value; }
+            get { return _firstName; }
+            set { _firstName = value; }
         }
 
         private List<Disease> _diseases;
@@ -30,6 +30,11 @@ namespace MiracleOfInfectionLibrary
         {
             get { return _infectedTimes; }
             set { _infectedTimes = value; }
+        }
+
+        public string fullName
+        {
+            get { return (this.firstName.ToString() + " " + this.lastName.ToString()); }
         }
 
         public Human()
@@ -49,6 +54,16 @@ namespace MiracleOfInfectionLibrary
             this.diseases.Add(disease);
         }
 
-        
+        public void InfectedByHuman(Human human, Disease disease)
+        {
+            infectedTimes += 1;
+            Disease shallowCopy = disease.ShallowCopy();
+            string msg = ($"Infected by {human.fullName}");
+            Disease.DiseaseLog logEnty = Disease.CreateLogEntry($"{msg} ");
+            shallowCopy.AddLogEntry(logEnty);
+            this.diseases.Add(shallowCopy);
+        }
+
+
     }
 }

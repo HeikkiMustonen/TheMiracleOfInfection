@@ -9,6 +9,17 @@ namespace MiracleOfInfectionTests
     public class TestHelper
     {
 
+        public static void PrintDiseaseLogToTestContext(Disease disease)
+        {
+            int entry = 1;
+            TestContext.WriteLine($"---Disease Log---");
+            foreach (Disease.DiseaseLog item in disease.diseaseLog)
+            {
+                TestContext.WriteLine($"{entry}. {item.logMessage} ");
+                entry += 1;
+            }
+        }
+
         public static void PrintHumanListWithSeperateHelathyAndInfectedToTestContext(List<Human> list)
         {
             int rowNumber = 1;
@@ -16,7 +27,7 @@ namespace MiracleOfInfectionTests
             int sick = 0;
             foreach (var human in list)
             {
-                TestContext.WriteLine($"{rowNumber}. {human.FirstName} {human.lastName} ");
+                TestContext.WriteLine($"{rowNumber}. {human.firstName} {human.lastName} ");
                 if (human.diseases.Count > 0)
                 {
                     sick += 1;
@@ -45,7 +56,7 @@ namespace MiracleOfInfectionTests
             int rowNumber = 1;
             foreach (var human in list)
             {
-                TestContext.WriteLine($"{rowNumber}. {human.FirstName} {human.lastName} ");
+                TestContext.WriteLine($"{rowNumber}. {human.firstName} {human.lastName} ");
                 if (human.diseases.Count > 0)
                 {
                     TestContext.WriteLine($"\tinfected times : {human.infectedTimes} ");
@@ -71,10 +82,22 @@ namespace MiracleOfInfectionTests
             int rowNumber = 1;
             foreach (var human in list)
             {
-                TestContext.WriteLine($"{rowNumber}. {human.FirstName} {human.lastName} ");
+                TestContext.WriteLine($"{rowNumber}. {human.firstName} {human.lastName} ");
                 rowNumber++;
             }
 
+        }
+
+        public void PrintDiseaseLog(Disease disease)
+        {
+            foreach (Disease.DiseaseLog logEntry in disease.diseaseLog)
+            {
+                for (int i = 0; i < disease.diseaseLog.Count; i++)
+                {
+                    TestContext.Write($"{i + 1}. ");
+                    TestContext.WriteLine($"message : {logEntry.logMessage}");
+                }
+            }
         }
     }
 }

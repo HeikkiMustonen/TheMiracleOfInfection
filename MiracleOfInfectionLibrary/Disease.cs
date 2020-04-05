@@ -34,16 +34,18 @@ namespace MiracleOfInfectionLibrary
         {
             this.name = "Disease Default";
             this.infectiousness = 10;
+            this.diseaseLog = new List<DiseaseLog>();
         }
 
         public Disease(string name, int infectiousness)
         {
             this.name = name;
             this.infectiousness = infectiousness;
+            this.diseaseLog = new List<DiseaseLog>();
         }
         public Disease ShallowCopy()
         {
-            return (Disease)this.ShallowCopy();
+            return this;
         }
 
         public Disease DeepCopy()
@@ -51,10 +53,11 @@ namespace MiracleOfInfectionLibrary
             Disease other = (Disease)this.ShallowCopy();
             other.name = this.name;
             other.infectiousness = this.infectiousness;
+            other.diseaseLog = this.diseaseLog;
             return other;
         }
 
-        public DiseaseLog CreateLogEntry(string message, int cycleNumber = 00)
+        public static DiseaseLog CreateLogEntry(string message, int cycleNumber = 00)
         {
             //00 is default message.
             
@@ -76,6 +79,11 @@ namespace MiracleOfInfectionLibrary
         {
             public int cycleNumber;
             public string logMessage;
+        }
+
+        public void AddLogEntry(DiseaseLog enty)
+        {
+            this.diseaseLog.Add(enty);
         }
                
     }

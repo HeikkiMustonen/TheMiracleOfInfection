@@ -50,7 +50,7 @@ namespace MiracleOfInfectionLibrary
                     if (RollInfection(infected.diseases[0]))
                     {
                         //if infected
-                        healthy.Infect(disease);
+                        healthy.InfectedByHuman(infected,disease);
                     }
                 }
             }            

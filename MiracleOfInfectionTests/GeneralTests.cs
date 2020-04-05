@@ -51,6 +51,8 @@ namespace MiracleOfInfectionTests
                 TestContext.WriteLine($"------------ Healthy ----------------");
                 TestHelper.PrintHumanListWithNamesOnlyToTestContext(workPlace.GetHealthy());
             }
+
+            Assert.Pass("This listing is done");
         }
 
         [Test]

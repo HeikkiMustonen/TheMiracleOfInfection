@@ -42,7 +42,7 @@ namespace MiracleOfInfectionTests
         public void CreateHumanTest()
         {
             Human human = humanFactory.CreateRandomHumanWithDataTest();
-            Assert.True(human.FirstName != null && human.lastName != null);
+            Assert.True(human.firstName != null && human.lastName != null);
         }
 
         
@@ -53,7 +53,7 @@ namespace MiracleOfInfectionTests
             List<Human> list = humanFactory.CreateListOfRandomHumans(5);
             foreach (Human human in list)
             {
-                TestContext.WriteLine($"Name was: {human.FirstName} ,{human.lastName}");
+                TestContext.WriteLine($"Name was: {human.firstName} ,{human.lastName}");
             }
             Assert.True(list.Count == 5);
         }

@@ -60,9 +60,6 @@ namespace MiracleOfInfectionTests
         {
             List<Human> list = humanFactory.CreateListOfRandomHumans(100);
             defaultWorkPlace.AddWorkers(list);
-            
-
-
             Assert.IsTrue(defaultWorkPlace.GetHealthy().Count == 100);
         }
     }
