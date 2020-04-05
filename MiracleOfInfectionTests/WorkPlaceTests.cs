@@ -41,7 +41,7 @@ namespace MiracleOfInfectionTests
             defaultWorkPlace.AddWorker(infectedHuman);
 
             bool hasInfected = defaultWorkPlace.HasInfectedHumans();
-            Assert.True(hasInfected == true);
+            Assert.True(hasInfected);
         }
 
         [Test]
@@ -50,8 +50,6 @@ namespace MiracleOfInfectionTests
             List<Human> list = humanFactory.CreateListOfRandomHumans(100);
             defaultWorkPlace.AddWorkers(list);
             bool hasInfected = defaultWorkPlace.HasInfectedHumans();
-
-
             Assert.IsFalse(hasInfected);
         }
 

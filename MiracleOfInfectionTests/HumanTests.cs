@@ -25,13 +25,48 @@ namespace MiracleOfInfectionTests
         [Test]
         public void InfectedByHumanTest()
         {
+            bool result = healthyHuman.InfectedByHuman(infectedHuman, infectedHuman.diseases[0]);
+            
+            TestContext.WriteLine("diseases count: "+healthyHuman.diseases.Count);
+            TestHelper.PrintDiseaseLogToTestContext(healthyHuman.diseases[0]);
+            Assert.IsTrue(result && healthyHuman.diseases.Count > 0);
+        }
+
+        [Test]
+        public void InfectedByHumanFalseTest()
+        {
+            //make sick
             healthyHuman.InfectedByHuman(infectedHuman, infectedHuman.diseases[0]);
             
-            TestContext.WriteLine("diseases log count: "+healthyHuman.diseases.Count);
+            //try to give the same disease again.
+            bool result = healthyHuman.InfectedByHuman(infectedHuman, infectedHuman.diseases[0]);
+            TestContext.WriteLine("diseases count: " + healthyHuman.diseases.Count);
             TestHelper.PrintDiseaseLogToTestContext(healthyHuman.diseases[0]);
-            Assert.IsTrue(healthyHuman.diseases.Count > 0);
-
+            Assert.IsFalse(result && healthyHuman.diseases.Count ==1);
         }
+
+        [Test]
+        public void HasDiseaseTrueTest()
+        {
+            Human human = humanFactory.CreateRandomHumanWithDataTest();
+            Disease disease = new Disease();
+            human.Infect(disease);
+            bool hasDisease = human.HasDisease(disease);
+            TestHelper.PrintDiseaseLogToTestContext(disease);
+            Assert.IsTrue(hasDisease == true);
+        }
+
+        [Test]
+        public void HasDiseaseFalseTest()
+        {
+            Human human = humanFactory.CreateRandomHumanWithDataTest();
+            Disease disease = new Disease();
+           
+            bool hasDisease = human.HasDisease(disease);
+            TestHelper.PrintDiseaseLogToTestContext(disease);
+            Assert.IsFalse(hasDisease);
+        }
+
 
     }
 }

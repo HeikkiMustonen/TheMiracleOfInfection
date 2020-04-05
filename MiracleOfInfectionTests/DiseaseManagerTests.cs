@@ -54,11 +54,41 @@ namespace MiracleOfInfectionTests
         [Test]
         public void RollInfectionAgainsGroupTest()
         {
-            List<Human> group = humanFactory.CreateListOfRandomHumans(100);
-            
+            List<Human> group = humanFactory.CreateListOfRandomHumans(10);
+            if (!HumanManager.GroupIsHealthy(group) || !infectedHuman.HasDisease())
+            {
+                Assert.Fail();
+            }
             DiseaseManager.RollInfectionAgainsGroup(infectedHuman, group);
-
             TestHelper.PrintHumanListWithDiseasesToTestContext(group);
+        }
+        [Test]
+        public void RollInfectionGroupAndGoupTest()
+        {
+            List<Human> group = humanFactory.CreateListOfRandomHumans(100);
+            Human sick = humanFactory.CreateRandomHumanWithDataTest();
+            Disease d = new Disease("GroupTestDisease", 5);
+            sick.Infect(d);
+            if (!HumanManager.GroupIsHealthy(group) || !sick.HasDisease())
+            {
+                Assert.Fail();
+            }
+            List<Human> sickGoup = new List<Human>() { sick };
+            TestHelper.PrintHumanData(sick);
+            TestContext.WriteLine($"Has {sick.diseases[0].name} which has {sick.diseases[0].infectiousness} infectiousness.");
+            TestContext.WriteLine("----------");
+            DiseaseManager.RollInfectionAgainnstGroupAndGourp(sickGoup, group);
+            TestContext.WriteLine("----Group members with disease ------- ");
+            var nowSickGroup = group.FindAll(x => x.HasDisease());
+            
+            foreach (Human human in nowSickGroup)
+            {
+                TestContext.WriteLine();
+                TestHelper.PrintHumanData(human);
+                TestHelper.PrintDiseaseLogToTestContext(human.diseases[0]);
+                
+            }
+            
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MiracleOfInfectionLibrary;
 using NUnit.Framework;
-using MiracleOfInfectionLibrary;
+using System.Collections.Generic;
 
 namespace MiracleOfInfectionTests
 {
@@ -12,10 +10,10 @@ namespace MiracleOfInfectionTests
         public static void PrintDiseaseLogToTestContext(Disease disease)
         {
             int entry = 1;
-            TestContext.WriteLine($"---Disease Log---");
+            TestContext.WriteLine($"Disease Log:");
             foreach (Disease.DiseaseLog item in disease.diseaseLog)
             {
-                TestContext.WriteLine($"{entry}. {item.logMessage} ");
+                TestContext.WriteLine($"\t{entry}. {item.logMessage} ");
                 entry += 1;
             }
         }
@@ -69,7 +67,7 @@ namespace MiracleOfInfectionTests
                 }
                 else
                 {
-              
+
                     TestContext.WriteLine($"\tHas no diseases ");
                 }
 
@@ -98,6 +96,12 @@ namespace MiracleOfInfectionTests
                     TestContext.WriteLine($"message : {logEntry.logMessage}");
                 }
             }
+        }
+
+        public static void PrintHumanData(Human human)
+        {
+            TestContext.WriteLine($"Name: {human.fullName}. ");
+            TestContext.WriteLine($"\tNumber of Diseases : {human.diseases.Count}");
         }
     }
 }

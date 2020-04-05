@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MiracleOfInfectionLibrary;
+﻿using MiracleOfInfectionLibrary;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace MiracleOfInfectionTests
 {
@@ -21,7 +19,7 @@ namespace MiracleOfInfectionTests
         public void CreateDefaultDiseaseTest()
         {
             Disease disease = new Disease();
-            Assert.IsTrue(disease.name == "Disease Default" && disease.infectiousness ==10);
+            Assert.IsTrue(disease.name == "Disease Default" && disease.infectiousness == 10);
         }
 
         [Test]
@@ -33,55 +31,61 @@ namespace MiracleOfInfectionTests
         }
 
         [Test]
-        public void DiseaseLogTest()
+        public void DiseaseDeepCopyTest()
         {
-            List<Human> healthy = humanFactory.CreateListOfRandomHumans(50);
-            
+            Disease d1 = new Disease();
+            Disease deepCopy = d1.DeepCopy();
+            Assert.AreNotEqual(d1, deepCopy);
+        }
+
+
+        [Test]
+        public void DiseaseLogIterationsTest()
+        {
+            List<Human> healthy = humanFactory.CreateListOfRandomHumans(1000);
+
             //Make Sick
             Human sick = humanFactory.CreateRandomHumanWithDataTest();
-            Disease testDisease = new Disease("Test Log Disease", 4);
+            Disease testDisease = new Disease("LoggingFever", 1);
             sick.diseases.Add(testDisease);
-            
+
             WorkPlace workPlace = new WorkPlace();
             workPlace.AddWorker(sick);
             workPlace.AddWorkers(healthy);
-
-            TestContext.WriteLine($"--- iteration ---\n");
-                
-            var normal = workPlace.GetHealthy();
-            DiseaseManager.RollInfectionAgainnstGroupAndGourp(workPlace.GetInfected(), workPlace.GetHealthy());
             List<Human> sicks = workPlace.GetInfected();
-            TestContext.WriteLine($"After one round Sick person : {sicks.Count}");
+
+            TestContext.WriteLine($"---Start ---");
+            TestContext.WriteLine($"At the start there is {sicks.Count} infected persons.");
+            TestContext.WriteLine($"Infected person is :{workPlace.GetInfected()[0].fullName}");
+            TestContext.WriteLine($"Disease is:{sick.diseases[0].name} and it has infectiousness rating {sick.diseases[0].infectiousness} ");
+            TestHelper.PrintDiseaseLogToTestContext(sick.diseases[0]);
+
+            int iterations = 5;
             
-            foreach (Human human in sicks)
+            for (int i = 0; i < iterations; i++)
             {
-                foreach (Disease disease in human.diseases)
+                DiseaseManager.RollInfectionAgainnstGroupAndGourp(workPlace.GetInfected(), workPlace.GetHealthy());
+
+                TestContext.WriteLine($"\n*** Day {i + 1} ***");
+                TestContext.WriteLine($"sick/healthy ratio is {workPlace.GetInfected().Count} / {workPlace.GetHealthy().Count}");
+
+                foreach (Human human in workPlace.GetInfected())
                 {
-                    if (disease.diseaseLog.Count > 0)
+                    TestContext.WriteLine($"\nName : {human.fullName}");
+                    TestContext.WriteLine($"Number of diseases: {human.diseases.Count}");
+                    foreach (Disease disease in human.diseases)
                     {
-                        TestContext.WriteLine($"Disease name :{disease.name}");
-                        TestContext.WriteLine($"\n{human.fullName}");
-                        TestHelper.PrintDiseaseLogToTestContext(disease);
+                        foreach (var messega in disease.diseaseLog)
+                        {
+                            TestContext.WriteLine($"Disease name :{disease.name}");
+                            TestContext.WriteLine($"Cloned itself :{disease.timesCopied}");
+                            TestHelper.PrintDiseaseLogToTestContext(disease);
+                        }
                     }
                 }
             }
 
-            DiseaseManager.RollInfectionAgainnstGroupAndGourp(workPlace.GetInfected(), workPlace.GetHealthy());
-            TestContext.WriteLine($"\n--- iteration 2 ---\n");
-            sicks = workPlace.GetInfected();
-            foreach (Human human in sicks)
-            {
-                foreach (Disease disease in human.diseases)
-                {
-                    if (disease.diseaseLog.Count > 0)
-                    {
-                        TestContext.WriteLine($"Disease name :{disease.name}");
-                        TestContext.WriteLine($"\n{human.fullName}");
-                        TestHelper.PrintDiseaseLogToTestContext(disease);
-                    }
-                }
-            }
-            Assert.IsTrue(1 == 1);
+            TestContext.WriteLine($"\nAfter {iterations-1} iterations sick/healthy ratio is {workPlace.GetInfected().Count} / {workPlace.GetHealthy().Count}");
         }
 
     }

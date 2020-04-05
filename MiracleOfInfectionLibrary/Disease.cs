@@ -29,12 +29,30 @@ namespace MiracleOfInfectionLibrary
             set { _diseaseLog = value; }
         }
 
+        private int _id;
+
+        public int id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+        private int _timesCopied;
+
+        public int timesCopied
+        {
+            get { return _timesCopied; }
+            set { _timesCopied = value; }
+        }
+
+
 
         public Disease()
         {
             this.name = "Disease Default";
             this.infectiousness = 10;
             this.diseaseLog = new List<DiseaseLog>();
+            this.id = 0;
         }
 
         public Disease(string name, int infectiousness)
@@ -42,18 +60,16 @@ namespace MiracleOfInfectionLibrary
             this.name = name;
             this.infectiousness = infectiousness;
             this.diseaseLog = new List<DiseaseLog>();
-        }
-        public Disease ShallowCopy()
-        {
-            return this;
+            this.id = 0;
         }
 
         public Disease DeepCopy()
         {
-            Disease other = (Disease)this.ShallowCopy();
-            other.name = this.name;
-            other.infectiousness = this.infectiousness;
-            other.diseaseLog = this.diseaseLog;
+            Disease other = new Disease();
+            other.name = this.name.ToString();
+            other.infectiousness = (int)this.infectiousness;
+            other.diseaseLog = this.diseaseLog.FindAll(x => x.Equals(x));
+            other.timesCopied = (int)this.timesCopied+1;
             return other;
         }
 

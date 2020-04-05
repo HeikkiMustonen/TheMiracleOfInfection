@@ -46,7 +46,7 @@ namespace MiracleOfInfectionLibrary
 
         }
         
-        public List<Human> GetInfected()
+        public new List<Human> GetInfected()
         {
             List<Human> infected = _workers.FindAll(x => x.diseases.Count > 0);
             return infected;

@@ -54,14 +54,55 @@ namespace MiracleOfInfectionLibrary
             this.diseases.Add(disease);
         }
 
-        public void InfectedByHuman(Human human, Disease disease)
+        /// <summary>
+        /// Gives disease to Human
+        /// 
+        /// </summary>
+        /// <param name="human"></param>
+        /// <param name="disease"></param>
+        /// <returns>Returns true if was infected succesfully, didn't have this disease before.</returns>
+        public bool InfectedByHuman(Human human, Disease disease)
         {
+            //if already has this disease.
+            if (this.HasDisease(disease)) return false;
             infectedTimes += 1;
-            Disease shallowCopy = disease.ShallowCopy();
-            string msg = ($"Infected by {human.fullName}");
-            Disease.DiseaseLog logEnty = Disease.CreateLogEntry($"{msg} ");
-            shallowCopy.AddLogEntry(logEnty);
-            this.diseases.Add(shallowCopy);
+
+            //Make a new oobject out of disease
+            Disease deepCopy = disease.DeepCopy();
+
+            //Add log entry to disease
+            string msg = ($"Got this From {human.fullName}");
+            Disease.DiseaseLog logEnty = Disease.CreateLogEntry($"{msg}");
+            deepCopy.AddLogEntry(logEnty);
+            
+            this.diseases.Add(deepCopy);
+            return true;
+        }
+
+        public bool HasDisease(Disease disease)
+        {
+            if(this.diseases.Find(x => x.id == disease.id) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public bool HasDisease()
+        {
+            if (this.diseases.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
 
