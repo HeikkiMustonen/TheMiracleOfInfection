@@ -42,7 +42,7 @@ namespace MiracleOfInfectionTests
         [Test]
         public void DiseaseLogIterationsTest()
         {
-            List<Human> healthy = humanFactory.CreateListOfRandomHumans(1000);
+            List<Human> healthy = humanFactory.CreateListOfRandomHumans(100);
 
             //Make Sick
             Human sick = humanFactory.CreateRandomHumanWithDataTest();

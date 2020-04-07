@@ -6,6 +6,9 @@ namespace MiracleOfInfectionLibrary
 {
     public class Disease
     {
+
+        #region "properties"
+
         private string _name;
 
         public string name
@@ -45,7 +48,32 @@ namespace MiracleOfInfectionLibrary
             set { _timesCopied = value; }
         }
 
+        #endregion
 
+        #region events
+
+        public static event EventHandler DiseaseEvent;
+
+        protected virtual void OnDiseaseEvent(DiseaseEventArgs e=null)
+        {
+            EventHandler handler = DiseaseEvent;
+            handler?.Invoke(this, e);
+        }
+
+        public class DiseaseEventArgs : EventArgs
+        {
+            public int PlaceHolderData { get; set; }
+            
+        }
+
+        public void EventTester()
+        {
+            DiseaseEventArgs e = new DiseaseEventArgs();
+            e.PlaceHolderData = 2;
+            OnDiseaseEvent(e);
+        }
+        
+        #endregion
 
         public Disease()
         {
@@ -70,6 +98,9 @@ namespace MiracleOfInfectionLibrary
             other.infectiousness = (int)this.infectiousness;
             other.diseaseLog = this.diseaseLog.FindAll(x => x.Equals(x));
             other.timesCopied = (int)this.timesCopied+1;
+
+
+
             return other;
         }
 
@@ -100,6 +131,7 @@ namespace MiracleOfInfectionLibrary
         public void AddLogEntry(DiseaseLog enty)
         {
             this.diseaseLog.Add(enty);
+            OnDiseaseEvent();
         }
                
     }
