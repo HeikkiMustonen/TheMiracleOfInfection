@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace MiracleOfInfectionLibrary
 {
@@ -34,8 +35,8 @@ namespace MiracleOfInfectionLibrary
         public override bool HasInfectedHumans()
         {
             List<Human> humans = this.GetWorkers();
-            var sick = humans.Find(x => x.diseases.Count > 0);
-            if(sick != null )
+            Human sick = humans.Find(x => x.diseases.Count > 0);
+            if ( sick != null )
             {
                 return true;
             }
@@ -43,7 +44,6 @@ namespace MiracleOfInfectionLibrary
             {
                 return false;
             }
-
         }
         
         public new List<Human> GetInfected()

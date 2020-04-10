@@ -55,7 +55,7 @@ namespace MiracleOfInfectionTests
         public void RollInfectionAgainsGroupTest()
         {
             List<Human> group = humanFactory.CreateListOfRandomHumans(10);
-            if (!HumanManager.GroupIsHealthy(group) || !infectedHuman.HasDisease())
+            if (!HumanManager.GroupIsHealthy(group) || !infectedHuman.IsInfected())
             {
                 Assert.Fail();
             }
@@ -69,7 +69,7 @@ namespace MiracleOfInfectionTests
             Human sick = humanFactory.CreateRandomHumanWithDataTest();
             Disease d = new Disease("GroupTestDisease", 5);
             sick.Infect(d);
-            if (!HumanManager.GroupIsHealthy(group) || !sick.HasDisease())
+            if (!HumanManager.GroupIsHealthy(group) || !sick.IsInfected())
             {
                 Assert.Fail();
             }
@@ -79,7 +79,7 @@ namespace MiracleOfInfectionTests
             TestContext.WriteLine("----------");
             DiseaseManager.RollInfectionAgainnstGroupAndGourp(sickGoup, group);
             TestContext.WriteLine("----Group members with disease ------- ");
-            var nowSickGroup = group.FindAll(x => x.HasDisease());
+            var nowSickGroup = group.FindAll(x => x.IsInfected());
             
             foreach (Human human in nowSickGroup)
             {

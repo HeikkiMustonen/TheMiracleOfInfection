@@ -14,7 +14,7 @@ namespace MiracleOfInfectionLibrary
             bool result = true;
             foreach (Human human in group)
             {
-                if (human.HasDisease())
+                if (human.IsInfected())
                 {
                     return false;
                 }

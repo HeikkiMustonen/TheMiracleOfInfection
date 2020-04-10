@@ -92,7 +92,7 @@ namespace MiracleOfInfectionLibrary
 
         }
 
-        public bool HasDisease()
+        public bool IsInfected()
         {
             if (this.diseases.Count > 0)
             {
